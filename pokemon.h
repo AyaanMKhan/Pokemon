@@ -2,6 +2,7 @@
 
 #include <array>
 #include <string>
+#include <vector>
 
 enum class PokemonType {
 	Normal,
@@ -38,9 +39,10 @@ public:
 	double power{0.0};
 	double accuracy{1.0};
 	int pp{0};
+    int priority{0};
 
 	PokemonMoves() = default;
-	PokemonMoves(std::string name, PokemonType type, PokemonMoveCategory category, double movePower, double moveAccuracy, int movePp);
+	PokemonMoves(std::string name, PokemonType type, PokemonMoveCategory category, double movePower, double moveAccuracy, int movePp, int movePriority);
 };
 
 class PokemonStats {
@@ -70,7 +72,9 @@ public:
 
 class Player {
 public:
-	std::array<Pokemon, 6> pokemonTeam{};
+	std::vector<Pokemon> pokemonTeam{};
+
+    Player(std::vector<Pokemon> team);
 };
 
 std::array<Pokemon, 6> generateTeam(const Player& player);
