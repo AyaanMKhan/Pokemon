@@ -1,16 +1,15 @@
 #include "pokemon.h"
-
+#include <cstddef>
 #include <iostream>
 
-int main()
-{
-    Player player(generateTeam());
+// g++ -std=c++17 main.cpp pokemon.cpp pokedex.cpp -o main
 
-    std::cout << "Generated Pokemon Team:\n";
-    std::cout << "=======================\n";
+int main() {
+    Player player;
+    player.generateTeam();
 
-    for (const Pokemon& pokemon : player.pokemonTeam) {
-        std::cout << pokemon.name << '\n';
+    for(size_t i = 0; i < player.team.size(); i++){
+        std::cout << player.team[i].name << "\n";
     }
 
     return 0;

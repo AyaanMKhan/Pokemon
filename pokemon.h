@@ -1,99 +1,74 @@
 #pragma once
 
-#include <array>
 #include <string>
+#include <array>
 #include <vector>
-#include <algorithm>
+
+enum class PokemonMoveCategory {
+    Physical,
+    Special,
+    Status,
+};
 
 enum class PokemonType {
     Normal,
     Fire,
     Water,
     Grass,
-    Dark,
-    Ghost,
-    Poison,
-    Bug,
     Electric,
-    Ground,
-    Rock,
-    Flying,
     Ice,
-    Dragon,
-    Fairy,
+    Fighting,
+    Poison,
+    Ground,
+    Flying,
     Psychic,
+    Bug,
+    Rock,
+    Ghost,
+    Dragon,
+    Dark,
     Steel,
-    Fighting
+    Fairy
 };
 
-enum class PokemonMoveCategory {
-    SpecialAttack,
-    Attack,
-    Status
+struct PokemonStats {
+    int hp;
+    int attack;
+    int defense;
+    int specialAttack;
+    int specialDefense;
+    int speed;
 };
 
-class PokemonMoves {
-public:
-    std::string moveName{};
-    PokemonType moveType{PokemonType::Normal};
-    PokemonMoveCategory moveCategory{PokemonMoveCategory::Status};
-    double power{0.0};
-    double accuracy{1.0};
-    int pp{0};
-    int priority{0};
-
-    PokemonMoves() = default;
-
-    PokemonMoves(
-        std::string name,
-        PokemonType type,
-        PokemonMoveCategory category,
-        double movePower,
-        double moveAccuracy,
-        int movePp,
-        int movePriority
-    );
+struct PokemonMove {
+    std::string name;
+    PokemonType type;
+    PokemonMoveCategory category;
+    int power;
+    int accuracy;
+    int pp;
+    int priority;
 };
 
-class PokemonStats {
-public:
-    int HP{0};
-    int Atk{0};
-    int Def{0};
-    int SpA{0};
-    int SpD{0};
-    int Spe{0};
 
-    PokemonStats() = default;
-
-    PokemonStats(int hp, int atk, int def, int spa, int spd, int spe);
-};
 
 class Pokemon {
-public:
-    int pokedexNum{0};
-    std::string name{};
-    std::array<PokemonType, 2> type{};
-    std::array<PokemonMoves, 4> moves{};
-    PokemonStats stats{};
-
-    Pokemon() = default;
-
-    Pokemon(
-        int pokemonNum,
-        std::string pokemonName,
-        std::array<PokemonType, 2> pokemonType,
-        std::array<PokemonMoves, 4> pokemonMoves,
-        PokemonStats pokemonStats
-    );
+    public:
+        int pokedexNumber;
+        std::string name;
+        std::array<PokemonType, 2> types;
+        std::array<PokemonMove, 4> moves;
+        PokemonStats stats;
+    
+    Pokemon();
+    Pokemon(int pokedexNumber, std::string name, std::array<PokemonType, 2> types, std::array<PokemonMove, 4> moves, PokemonStats stats);
 };
+
 
 class Player {
-public:
-    std::vector<Pokemon> pokemonTeam{};
+    public:
+        std::array<Pokemon, 6> team;
 
-    Player() = default;
-    Player(std::vector<Pokemon> team);
+    Player();
+    void generateTeam();
 };
-
-std::vector<Pokemon> generateTeam();
