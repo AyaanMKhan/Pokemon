@@ -10,25 +10,29 @@ enum class PokemonMoveCategory {
     Status,
 };
 
+
+
 enum class PokemonType {
     Normal,
+    Fighting,
+    Flying,
+    Poison,
+    Ground,
+    Rock,
+    Bug,
+    Ghost,
+    Steel,
     Fire,
     Water,
     Grass,
     Electric,
-    Ice,
-    Fighting,
-    Poison,
-    Ground,
-    Flying,
     Psychic,
-    Bug,
-    Rock,
-    Ghost,
+    Ice,
     Dragon,
     Dark,
-    Steel,
-    Fairy
+    Fairy,
+    None,
+    Count
 };
 
 struct PokemonStats {
@@ -72,3 +76,6 @@ class Player {
     Player();
     void generateTeam();
 };
+
+
+std::string pokemonTypeToString(PokemonType type);

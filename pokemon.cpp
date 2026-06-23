@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <array>
 #include <cstddef>
-#include <iostream>
 #include <numeric>
 #include <random>
 #include <vector>
@@ -47,4 +46,30 @@ void Player::generateTeam() {
     }
 
     
+}
+
+std::string pokemonTypeToString(PokemonType type)
+{
+    switch (type) {
+        case PokemonType::Normal: return "Normal";
+        case PokemonType::Fighting: return "Fighting";
+        case PokemonType::Flying: return "Flying";
+        case PokemonType::Poison: return "Poison";
+        case PokemonType::Ground: return "Ground";
+        case PokemonType::Rock: return "Rock";
+        case PokemonType::Bug: return "Bug";
+        case PokemonType::Ghost: return "Ghost";
+        case PokemonType::Steel: return "Steel";
+        case PokemonType::Fire: return "Fire";
+        case PokemonType::Water: return "Water";
+        case PokemonType::Grass: return "Grass";
+        case PokemonType::Electric: return "Electric";
+        case PokemonType::Psychic: return "Psychic";
+        case PokemonType::Ice: return "Ice";
+        case PokemonType::Dragon: return "Dragon";
+        case PokemonType::Dark: return "Dark";
+        case PokemonType::Fairy: return "Fairy";
+        case PokemonType::None: return "None";
+        default: return "Unknown";
+    }
 }
