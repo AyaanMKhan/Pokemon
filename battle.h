@@ -3,6 +3,6 @@
 #include "pokemon.h"
 #include "typechart.h"
 
-void attack(std::array<PokemonType, 2> type1, std::array<PokemonType, 2> type2);
+double attack(Pokemon activePokemon1, Pokemon activePokemon2);
 
 int switchPokemon(Player player, int activeIndex, int switchIndex);
