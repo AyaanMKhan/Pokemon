@@ -2,40 +2,67 @@
 #include <cstddef>
 #include <iostream>
 #include "typechart.h"
+#include "battle.h"
 
 // g++ -std=c++17 main.cpp pokemon.cpp pokedex.cpp -o main
 
 
+
+
+
+
+
+
 int main() {
     Player player;
-    player.generateTeam();
+    player.generateTeam();   
 
-    for(size_t i = 0; i < player.team.size(); i++){
-        std::cout << player.team[i].name << "\n";
+    int currentPokemonIndex = 0;
+    
+    Pokemon activePokemon1 = player.team[currentPokemonIndex];
+    
+
+    for(int i = 0; i < player.team.size(); i++){
+        std::cout << player.team[i].name << std::endl;
     }
 
-    //     std::vector<std::vector<double>> matrix = getTypeChart();
-    std::vector<std::vector<double>> matrix = getTypeChart();
-    
+    int input = 0;
 
-    int rows = matrix.size();
-    
-    int cols = matrix[0].size();
+    while(input != 3){
+        std::cout << "Active Pokemon is: " << activePokemon1.name << std::endl;
+        std::cout << "Health: " << activePokemon1.stats.hp << std::endl;
 
-    for (int i = 0; i <= rows; i++) {
-        PokemonType type = static_cast<PokemonType>(i);
+        std::cout << "1. Attack" << std::endl;
+        std::cout << "2. Switch Pokemon" << std::endl;
 
-        std::cout << pokemonTypeToString(type) << ": ";
+        std::cin >> input;
+        
 
-        for (int j = 0; j < cols; j++) {
-            PokemonType type2 = static_cast<PokemonType>(j);
+        if(input == 2){
+            int switchIndex{};
+            std::cout << "Which pokemon would you like to switch to?" << std::endl;
+            for(int i = 0; i < player.team.size(); i++){
+                if(i != currentPokemonIndex){
+                    std::cout << i+1 << ": " << player.team[i].name << std::endl;
+                }
+                
+            }
 
-            std::cout << pokemonTypeToString(type2) << ": " << matrix[i][j] << " " << std::endl;
+            std::cin >> switchIndex;
+
+            currentPokemonIndex = switchPokemon(player, currentPokemonIndex, switchIndex-1);
+            activePokemon1 = player.team[currentPokemonIndex];
+
+            std::cout << activePokemon1.name << " has come out to battle!" << std::endl;
+            
+        } else if(input == 3){
+            break;
+        } else {
+            continue;
         }
-
-        std::cout << std::endl;
     }
     
 
+    
     return 0;
 }

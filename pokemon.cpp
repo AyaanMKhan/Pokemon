@@ -10,6 +10,7 @@
 Pokemon::Pokemon() = default;
 
 Pokemon::Pokemon(
+    
     int pokedexNumber,
     std::string name,
     std::array<PokemonType, 2> types,

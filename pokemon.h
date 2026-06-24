@@ -58,6 +58,7 @@ struct PokemonMove {
 
 class Pokemon {
     public:
+        inline static bool isAlive = true;
         int pokedexNumber;
         std::string name;
         std::array<PokemonType, 2> types;
