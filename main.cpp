@@ -40,14 +40,27 @@ int main() {
         std::cout << player2.team[i].name << std::endl;
     }
 
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
     int input = 0;
     int input2 = 0;
     int TeamCount1 = 6;
     int TeamCount2 = 6;
 
     while(input != 3){
-        std::cout << "Active Pokemon is: " << activePokemon1.name << std::endl;
+        std::cout << "Active Pokemon for player1: " << activePokemon1.name << std::endl;
         std::cout << "Health: " << activePokemon1.stats.hp << std::endl;
+
+        std::cout << std::endl;
+        std::cout << std::endl;
+
+        std::cout << "Active Pokemon for player2: " << activePokemon2.name << std::endl;
+        std::cout << "Health: " << activePokemon2.stats.hp << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
 
         std::cout << "1. Attack" << std::endl;
         std::cout << "2. Switch Pokemon" << std::endl;
@@ -57,7 +70,6 @@ int main() {
             std::cout << activePokemon1.name << " will atack " << activePokemon2.name << std::endl;
             double damage = attack(activePokemon1, activePokemon2);
             activePokemon2.stats.hp -= damage;
-            std::cout << activePokemon2.stats.hp << std::endl;
             if(activePokemon2.stats.hp <= 0){
                 activePokemon2.isAlive = 1;
                 TeamCount2 -= 1;

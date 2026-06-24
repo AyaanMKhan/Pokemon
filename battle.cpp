@@ -2,6 +2,8 @@
 #include <vector>
 #include "pokemon.h"
 #include "typechart.h"
+#include <cstdlib>
+#include <ctime>
 
 const std::vector<std::vector<double>> matrix = getTypeChart();
 
@@ -19,78 +21,87 @@ double attack(Pokemon activePokemon1, Pokemon activePokemon2){
 
     std::cin >> input;
     PokemonMove attackMove = activePokemon1.moves[input-1];
-    if(input >= 4 || input <= 0){
+
+    
+    if(input > 4 || input <= 0){
         std::cout << "Please select valid attack: " << std::endl;
     }  else {
         std::cout << "User selected: " << attackMove.name << std::endl;
     }
     int moveType = static_cast<int>(attackMove.category);
-    
+    int accuracy = attackMove.accuracy;
     int level = 50; // All pokemon are level 50;
-    
+    srand(time(0));
 
-    if(moveType == 0){
-        std::cout << "Physical" << std::endl;
-        double power = attackMove.power;
-        double attack = activePokemon1.stats.attack;
-        double defense = activePokemon2.stats.defense;
-        double damage = ((2 * level / 50) * power * attack / defense / 50 * 2);
-        
-        int type = static_cast<int>(attackMove.type);
-        int pokemonType1 = static_cast<int>(activePokemon2.types[0]);
-        int pokemonType2 = static_cast<int>(activePokemon2.types[1]);
+    int roll = rand() % 100 + 1;        // Random number from 1 to 100
 
-        double val1 = matrix[type][pokemonType1];
-        double val2 = matrix[type][pokemonType2];
-        double multi = val1 * val2;
-        std::cout << multi << std::endl;
-        std::cout << pokemonTypeToString(attackMove.type) << std::endl;
-        std::cout << pokemonTypeToString(activePokemon2.types[0]) << pokemonTypeToString(activePokemon2.types[1]) << std::endl;
-
-        if(multi >= 2.0){
-            std::cout << "Super Effective !";
-        } else if(multi >= 1.0) {
-            std::cout << "Effective !";
-        } else if(multi >= 0.25){
-            std::cout << "Not very effective";
-        } else if(multi == 0){
-            std::cout << "Not affected by attack";
-        }
-
-        return damage*multi;
-    } else if(moveType == 1){
-        std::cout << "Special Attack" << std::endl;
-        double power = activePokemon1.moves[input-1].power;
-        double SPEattack = activePokemon1.stats.specialAttack;
-        double SPEdefense = activePokemon2.stats.specialDefense;
-        double damage = ((2 * level / 50) * power * SPEattack / SPEdefense / 50 * 2);
-
-        int type = static_cast<int>(attackMove.type);
-        int pokemonType1 = static_cast<int>(activePokemon2.types[0]);
-        int pokemonType2 = static_cast<int>(activePokemon2.types[1]);
-
-        double val1 = matrix[type][pokemonType1];
-        double val2 = matrix[type][pokemonType2];
-        double multi = val1 * val2;
-        std::cout << multi << std::endl;
-        std::cout << pokemonTypeToString(attackMove.type) << std::endl;
-        std::cout << pokemonTypeToString(activePokemon2.types[0]) << pokemonTypeToString(activePokemon2.types[1]) << std::endl;
-
-        if(multi >= 2.0){
-            std::cout << "Super Effective !";
-        } else if(multi >= 1.0) {
-            std::cout << "Effective !";
-        } else if(multi >= 0.25){
-            std::cout << "Not very effective";
-        } else if(multi == 0){
-            std::cout << "Not affected by attack";
-        }
-        return damage*multi;
-    } else {
-        std::cout << "Status" << std::endl;
+    if(roll > accuracy){
+        std::cout << attackMove.name << " missed!" << std::endl;
         return 0;
+    } else {
+        if(moveType == 0){
+            double power = attackMove.power;
+            double attack = activePokemon1.stats.attack;
+            double defense = activePokemon2.stats.defense;
+            double damage = ((2 * level / 50) * power * attack / defense / 50 * 2);
+
+            // Random damage roll: 85% to 100%
+            int roll = rand() % 16 + 85;
+            double randomMultiplier = roll / 100.0;
+            
+            int type = static_cast<int>(attackMove.type);
+            int pokemonType1 = static_cast<int>(activePokemon2.types[0]);
+            int pokemonType2 = static_cast<int>(activePokemon2.types[1]);
+
+            double val1 = matrix[type][pokemonType1];
+            double val2 = matrix[type][pokemonType2];
+            double multi = val1 * val2;
+
+            if(multi >= 2.0){
+                std::cout << "Super Effective !" << std::endl;
+            } else if(multi >= 1.0) {
+                std::cout << "Effective !" << std::endl;
+            } else if(multi >= 0.25){
+                std::cout << "Not very effective"  << std::endl;
+            } else if(multi == 0){
+                std::cout << "Not affected by attack" << std::endl;
+            }
+
+            return damage*multi*randomMultiplier;
+        } else if(moveType == 1){
+            double power = activePokemon1.moves[input-1].power;
+            double SPEattack = activePokemon1.stats.specialAttack;
+            double SPEdefense = activePokemon2.stats.specialDefense;
+            double damage = ((2 * level / 50) * power * SPEattack / SPEdefense / 50 * 2);
+            int roll = rand() % 16 + 85;
+            double randomMultiplier = roll / 100.0;
+
+            int type = static_cast<int>(attackMove.type);
+            int pokemonType1 = static_cast<int>(activePokemon2.types[0]);
+            int pokemonType2 = static_cast<int>(activePokemon2.types[1]);
+
+            double val1 = matrix[type][pokemonType1];
+            double val2 = matrix[type][pokemonType2];
+            double multi = val1 * val2;
+            
+
+            if(multi >= 2.0){
+                std::cout << "Super Effective !" << std::endl;
+            } else if(multi >= 1.0) {
+                std::cout << "Effective !" << std::endl;
+            } else if(multi >= 0.25){
+                std::cout << "Not very effective" << std::endl;
+            } else if(multi == 0){
+                std::cout << "Not affected by attack" << std::endl;
+            }
+            return damage*multi*randomMultiplier;
+        } else {
+            std::cout << "Status" << std::endl;
+            return 0;
+        }
+
     }
-    
+
 }
 
 
