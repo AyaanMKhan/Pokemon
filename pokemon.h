@@ -10,6 +10,14 @@ enum class PokemonMoveCategory {
     Status,
 };
 
+enum class StatusCondition {
+    None,
+    Burn,
+    Paralysis,
+    Poison,
+    BadlyPoisoned,
+};
+
 
 
 enum class PokemonType {
@@ -58,13 +66,19 @@ struct PokemonMove {
 
 class Pokemon {
     public:
-        inline static bool isAlive = true;
+        bool isAlive = true;
         int pokedexNumber;
         std::string name;
         std::array<PokemonType, 2> types;
         std::array<PokemonMove, 4> moves;
         PokemonStats stats;
-    
+        int maxHp = 0;
+        StatusCondition status = StatusCondition::None;
+        int toxicCounter = 0;
+        int attackStage = 0;
+        int specialAttackStage = 0;
+        int speedStage = 0;
+
     Pokemon();
     Pokemon(int pokedexNumber, std::string name, std::array<PokemonType, 2> types, std::array<PokemonMove, 4> moves, PokemonStats stats);
 };
@@ -73,6 +87,7 @@ class Pokemon {
 class Player {
     public:
         std::array<Pokemon, 6> team;
+        bool stealthRock = false;
 
     Player();
     void generateTeam();
@@ -80,3 +95,4 @@ class Player {
 
 
 std::string pokemonTypeToString(PokemonType type);
+std::string statusConditionToString(StatusCondition status);

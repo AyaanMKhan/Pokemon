@@ -22,6 +22,7 @@ Pokemon::Pokemon(
     this->types = types;
     this->moves = moves;
     this->stats = stats;
+    this->maxHp = stats.hp;
 }
 
 
@@ -72,5 +73,15 @@ std::string pokemonTypeToString(PokemonType type)
         case PokemonType::Fairy: return "Fairy";
         case PokemonType::None: return "None";
         default: return "Unknown";
+    }
+}
+
+std::string statusConditionToString(StatusCondition status) {
+    switch (status) {
+        case StatusCondition::Burn: return "burned";
+        case StatusCondition::Paralysis: return "paralyzed";
+        case StatusCondition::Poison: return "poisoned";
+        case StatusCondition::BadlyPoisoned: return "badly poisoned";
+        default: return "";
     }
 }
